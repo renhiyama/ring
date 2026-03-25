@@ -49,7 +49,7 @@ cfg_if::cfg_if! {
     } else if #[cfg(all(all(target_arch = "aarch64", target_endian = "little"), target_os = "fuchsia"))] {
         mod fuchsia;
         use fuchsia as detect;
-    } else if #[cfg(any(target_os = "android", target_os = "linux"))] {
+    } else if #[cfg(any(target_os = "android", any(target_os = "linux", target_os = "runixos")))] {
         mod linux;
         use linux as detect;
     } else if #[cfg(all(all(target_arch = "aarch64", target_endian = "little"), target_os = "windows"))] {

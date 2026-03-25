@@ -69,7 +69,7 @@ fn x25519_public_from_private(
 
     #[cfg(all(
         all(target_arch = "arm", target_endian = "little"),
-        any(target_os = "android", target_os = "linux")
+        any(target_os = "android", any(target_os = "linux", target_os = "runixos"))
     ))]
     if let Some(cpu) = <cpu::Features as cpu::GetFeature<_>>::get_feature(&cpu_features) {
         static MONTGOMERY_BASE_POINT: [u8; 32] = [
@@ -116,7 +116,7 @@ fn x25519_ecdh(
     ) {
         #[cfg(all(
             all(target_arch = "arm", target_endian = "little"),
-            any(target_os = "android", target_os = "linux")
+            any(target_os = "android", any(target_os = "linux", target_os = "runixos"))
         ))]
         if let Some(cpu) = <cpu::Features as cpu::GetFeature<_>>::get_feature(&cpu_features) {
             return x25519_neon(out, scalar, point, cpu);
@@ -167,7 +167,7 @@ fn x25519_ecdh(
 // BoringSSL uses `!defined(OPENSSL_APPLE)`.
 #[cfg(all(
     all(target_arch = "arm", target_endian = "little"),
-    any(target_os = "android", target_os = "linux")
+    any(target_os = "android", any(target_os = "linux", target_os = "runixos"))
 ))]
 fn x25519_neon(
     out: &mut ops::EncodedPoint,
